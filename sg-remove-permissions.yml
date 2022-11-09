@@ -1,0 +1,24 @@
+policies:
+  - name: sg-remove-permission
+    resource: security-group
+    filters:
+       - or:
+             - type: ingress
+               IpProtocol: "-1"
+               Ports: [22]
+               Cidr: "0.0.0.0/0"
+             - type: ingress
+               IpProtocol: "-1"
+               Ports: [22]
+               CidrV6: "::/0"
+    actions:
+      - type: set-permissions
+        remove-ingress: matched
+        add-ingress:
+          - IpPermissions:
+            - IpProtocol: TCP
+              FromPort: 22
+              ToPort: 22
+              IpRanges:
+                - Description: VPN1 Access
+                  CidrIp: "10.10.0.0/16"
