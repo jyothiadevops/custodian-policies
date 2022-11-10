@@ -1,5 +1,7 @@
 # custodian-policies
 
+python3 -m venv custodian
+
 source custodian/bin/activate
 
 
